@@ -18400,7 +18400,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   border: 0;
   margin-bottom: 30px;
   margin-top: 30px;
-  border-radius: 6px;
+  border-radius: 15px;
   color: #333333;
   background: #fff;
   width: 100%;
@@ -18556,7 +18556,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-primary,
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: linear-gradient(60deg, #ab47bc, #8e24aa);
+  background: linear-gradient(60deg, #42a5f5, #1e88e5);
 }
 
 .card .card-header-info .card-icon,
@@ -18565,7 +18565,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-info,
 .card.card-rotate.bg-info .front,
 .card.card-rotate.bg-info .back {
-  background: linear-gradient(60deg, #26c6da, #00acc1);
+  background: linear-gradient(60deg, #26a69a, #00897b);
 }
 
 .card .card-header-success .card-icon,
@@ -18574,7 +18574,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-success,
 .card.card-rotate.bg-success .front,
 .card.card-rotate.bg-success .back {
-  background: linear-gradient(60deg, #66bb6a, #43a047);
+  background: linear-gradient(60deg, #9ccc65, #7cb342);
 }
 
 .card .card-header-warning .card-icon,
@@ -18583,7 +18583,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-warning,
 .card.card-rotate.bg-warning .front,
 .card.card-rotate.bg-warning .back {
-  background: linear-gradient(60deg, #ffa726, #fb8c00);
+  background: linear-gradient(60deg, #ffd54f, #ffca28);
 }
 
 .card .card-header-danger .card-icon,
@@ -18592,7 +18592,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 .card.bg-danger,
 .card.card-rotate.bg-danger .front,
 .card.card-rotate.bg-danger .back {
-  background: linear-gradient(60deg, #ef5350, #e53935);
+  background: linear-gradient(60deg, #ff7043, #ff5722);
 }
 
 .card .card-header-rose .card-icon,
