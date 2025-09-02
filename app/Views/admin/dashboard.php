@@ -5,6 +5,7 @@
         <!-- Stat Cards -->
         <div class="dashboard-grid">
             <!-- Card Siswa -->
+             <a href="<?= base_url('admin/siswa'); ?>" class="text-white">
             <div class="stat-card">
                 <div class="icon siswa">
                     <i class="material-icons">person</i>
@@ -15,7 +16,9 @@
                     <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
+            </a>
             <!-- Card Guru -->
+             <a href="<?= base_url('admin/guru'); ?>" class="text-white">
             <div class="stat-card">
                 <div class="icon guru">
                     <i class="material-icons">person</i>
@@ -26,7 +29,9 @@
                     <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
+</a>
             <!-- Card Kelas -->
+             <a href="<?= base_url('admin/kelas'); ?>" class="text-white">
             <div class="stat-card">
                 <div class="icon kelas">
                     <i class="material-icons">star</i>
@@ -37,7 +42,9 @@
                     <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
+</a>
             <!-- Card Petugas -->
+             <a href="<?= base_url('admin/petugas'); ?>" class="text-white">
             <div class="stat-card">
                 <div class="icon petugas">
                     <i class="material-icons">settings</i>
@@ -48,6 +55,7 @@
                     <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
+</a>
         </div>
 
         <!-- Attendance and Charts Section -->
