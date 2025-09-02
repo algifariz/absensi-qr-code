@@ -122,3 +122,7 @@
         transform: scale(1.0);
     }
 }
+
+.card {
+  border-radius: 1rem;
+}
