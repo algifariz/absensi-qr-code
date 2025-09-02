@@ -8,16 +8,7 @@
    <?= $this->include('templates/css'); ?>
    <title>Absensi QR Code</title>
    <style>
-      .bg {
-         background: url(<?= base_url('assets/img/bg2.jpg'); ?>) center;
-         opacity: 0.1;
-         background-size: cover;
-         height: 100vh;
-         width: 100%;
-         position: absolute;
-         left: 0;
-         top: 0;
-      }
+      
 
       .main-panel {
          position: relative;
@@ -52,15 +43,18 @@
 </head>
 
 <body>
-   <div class="bg bg-image"></div>
+
    <!-- Navbar -->
    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
       <div class="container-fluid">
-         <div class="navbar-wrapper row w-100">
-            <div class="col-6">
-               <p class="navbar-brand"><b><?= $title ?? 'Login'; ?></b></p>
+         <div class="navbar-wrapper row w-100 align-items-center" style="height: 60px;">
+            <div class="col-3">
+               
             </div>
-            <div class="col-6 d-flex justify-content-end">
+            <div class="col-6 text-center">
+               <p class="navbar-brand m-0" style="font-size: 1.5rem; font-weight: bold;"><?= $title ?? 'Login'; ?></p>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
                <?= $this->renderSection('navaction') ?>
             </div>
          </div>
