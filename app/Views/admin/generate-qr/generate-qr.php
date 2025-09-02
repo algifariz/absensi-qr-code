@@ -33,7 +33,7 @@
           </div>
         <?php endif; ?>
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-primary">
             <h4 class="card-title"><b>Generate QR Code</b></h4>
             <p class="card-category">Generate QR berdasarkan kode unik data siswa/guru</p>
           </div>
@@ -42,10 +42,10 @@
               <div class="col-md-6">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="text-primary"><b>Data Siswa</b></h4>
+                    <h4 class="text-dark"><b>Data Siswa</b></h4>
                     <p>Total jumlah siswa : <b><?= count($siswa); ?></b>
                       <br>
-                      <a href="<?= base_url('admin/siswa'); ?>">Lihat data</a>
+                      <a href="<?= base_url('admin/siswa'); ?>" class="text-dark">Lihat data</a>
                     </p>
                     <div class="row px-2">
                       <div class="col-12 col-xl-6 px-1">
@@ -144,10 +144,10 @@
               <div class="col-md-6">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="text-success"><b>Data Guru</b></h4>
+                    <h4 class="text-dark"><b>Data Guru</b></h4>
                     <p>Total jumlah guru : <b><?= count($guru); ?></b>
                       <br>
-                      <a href="<?= base_url('admin/guru'); ?>" class="text-success">Lihat data</a>
+                      <a href="<?= base_url('admin/guru'); ?>" class="text-dark">Lihat data</a>
                     </p>
                     <div class="row px-2">
                       <div class="col-12 col-xl-6 px-1">
@@ -190,7 +190,7 @@
                     <br>
                     <p>
                       Untuk generate/download QR Code per masing-masing guru kunjungi
-                      <a href="<?= base_url('admin/guru'); ?>" class="text-success"><b>data guru</b></a>
+                      <a href="<?= base_url('admin/guru'); ?>" class="text-dark"><b>data guru</b></a>
                     </p>
                   </div>
                 </div>

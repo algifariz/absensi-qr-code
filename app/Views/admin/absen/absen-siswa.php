@@ -114,11 +114,11 @@
    function updateBtn(id_btn) {
       for (let index = 1; index <= <?= count($kelas); ?>; index++) {
          if (index != id_btn) {
-            $('#kelas-' + index).removeClass('btn-success');
+            $('#kelas-' + index).removeClass('btn-active-attendance');
             $('#kelas-' + index).addClass('btn-primary');
          } else {
             $('#kelas-' + index).removeClass('btn-primary');
-            $('#kelas-' + index).addClass('btn-success');
+            $('#kelas-' + index).addClass('btn-active-attendance');
          }
       }
    }

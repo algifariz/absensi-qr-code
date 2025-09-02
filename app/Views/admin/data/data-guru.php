@@ -17,7 +17,7 @@
             <div class="row">
                <div class="col-12 col-xl-12">
                   <div class="card">
-                     <div class="card-header card-header-tabs card-header-success">
+                     <div class="card-header card-header-tabs card-header-primary">
                         <div class="nav-tabs-navigation">
                            <div class="row">
                               <div class="col-md-4 col-lg-5">

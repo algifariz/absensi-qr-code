@@ -5,10 +5,10 @@
         <!-- Stat Cards -->
         <div class="dashboard-grid">
             <!-- Card Siswa -->
-             <a href="<?= base_url('admin/siswa'); ?>" class="text-white">
+             <a href="<?= base_url('admin/siswa'); ?>">
             <div class="stat-card">
                 <div class="icon bg-blue">
-                    <i class="material-icons">person</i>
+                    <i class="material-icons">group</i>
                 </div>
                 <div class="info">
                     <div class="label">Jumlah Siswa</div>
@@ -18,10 +18,10 @@
             </div>
             </a>
             <!-- Card Guru -->
-             <a href="<?= base_url('admin/guru'); ?>" class="text-white">
+             <a href="<?= base_url('admin/guru'); ?>">
             <div class="stat-card">
                 <div class="icon bg-blue">
-                    <i class="material-icons">person</i>
+                    <i class="material-icons">groups</i>
                 </div>
                 <div class="info">
                     <div class="label">Jumlah Guru</div>
@@ -31,10 +31,10 @@
             </div>
 </a>
             <!-- Card Kelas -->
-             <a href="<?= base_url('admin/kelas'); ?>" class="text-white">
+             <a href="<?= base_url('admin/kelas'); ?>">
             <div class="stat-card">
                 <div class="icon bg-blue">
-                    <i class="material-icons">star</i>
+                    <i class="material-icons">home</i>
                 </div>
                 <div class="info">
                     <div class="label">Jumlah Kelas</div>
@@ -44,10 +44,10 @@
             </div>
 </a>
             <!-- Card Petugas -->
-             <a href="<?= base_url('admin/petugas'); ?>" class="text-white">
+             <a href="<?= base_url('admin/petugas'); ?>">
             <div class="stat-card">
                 <div class="icon bg-blue">
-                    <i class="material-icons">settings</i>
+                    <i class="material-icons">lock</i>
                 </div>
                 <div class="info">
                     <div class="label">Jumlah Petugas</div>
@@ -140,18 +140,24 @@ document.addEventListener("DOMContentLoaded", function() {
                 min: 0,
                 max: Math.max(1, maxValue),
                 ticks: {
-                    color: '#fff',
-                    stepSize: 0.5,
+                    color: '#666',
+                    stepSize: 1,
+                    font: {
+                        size: 12
+                    }
                 },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.2)',
+                    color: 'rgba(0, 0, 0, 0.1)',
                     borderDash: [2, 2],
                     drawBorder: false,
                 }
             },
             x: {
                 ticks: {
-                    color: '#fff'
+                    color: '#666',
+                    font: {
+                        size: 12
+                    }
                 },
                 grid: {
                     display: false
@@ -160,21 +166,34 @@ document.addEventListener("DOMContentLoaded", function() {
         },
         plugins: {
             legend: {
-                display: false
+                display: true,
+                position: 'top',
+                labels: {
+                    color: '#333',
+                    font: {
+                        size: 12,
+                        weight: '600'
+                    },
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                borderColor: '#333',
+                borderWidth: 1,
+                cornerRadius: 6,
+                displayColors: false
             }
         },
-        elements: {
-            line: {
-                borderColor: '#fff',
-                borderWidth: 2,
-                tension: 0.4
-            },
-            point: {
-                backgroundColor: '#fff',
-                radius: 4,
-                hoverRadius: 6
-            }
-        }
+        interaction: {
+            intersect: false,
+            mode: 'index'
+        },
+        responsive: true,
+        maintainAspectRatio: false
     });
 
     const maxStudent = Math.max(...studentData, 0);
@@ -188,7 +207,18 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: 'Kehadiran Siswa',
                 data: studentData,
-                fill: false,
+                fill: true,
+                backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                borderColor: '#2196f3',
+                borderWidth: 3,
+                tension: 0.4,
+                pointBackgroundColor: '#2196f3',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: '#1976d2',
+                pointHoverBorderColor: '#ffffff'
             }]
         },
         options: createChartOptions(maxStudent)
@@ -202,7 +232,18 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: 'Kehadiran Guru',
                 data: teacherData,
-                fill: false
+                fill: true,
+                backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                borderColor: '#4caf50',
+                borderWidth: 3,
+                tension: 0.4,
+                pointBackgroundColor: '#4caf50',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 8,
+                pointHoverBackgroundColor: '#388e3c',
+                pointHoverBorderColor: '#ffffff'
             }]
         },
         options: createChartOptions(maxTeacher)

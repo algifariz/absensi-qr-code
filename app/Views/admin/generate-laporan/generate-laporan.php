@@ -15,7 +15,7 @@
                </div>
             <?php endif; ?>
             <div class="card">
-               <div class="card-header card-header-tabs card-header-info">
+               <div class="card-header card-header-tabs card-header-primary">
                   <div class="nav-tabs-navigation">
                      <div class="row">
                         <div class="col">
@@ -30,7 +30,7 @@
                      <div class="col-md-6">
                         <div class="card h-100">
                            <form action="<?= base_url('admin/laporan/siswa'); ?>" method="post" class="card-body d-flex flex-column">
-                              <h4 class="text-primary"><b>Laporan Absen Siswa</b></h4>
+                              <h4 class="text-dark"><b>Laporan Absen Siswa</b></h4>
                               <div class="row align-items-center">
                                  <div class="col-auto">
                                     <p class="d-inline"><b>Bulan :</b></p>
@@ -98,7 +98,7 @@
                      <div class="col-md-6">
                         <div class="card h-100">
                            <form action="<?= base_url('admin/laporan/guru'); ?>" method="post" class="card-body d-flex flex-column">
-                              <h4 class="text-success"><b>Laporan Absen Guru</b></h4>
+                              <h4 class="text-dark"><b>Laporan Absen Guru</b></h4>
                               <p>Total jumlah guru : <b><?= count($guru); ?></b></p>
                               <div class="row align-items-center">
                                  <div class="col-auto">
