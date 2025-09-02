@@ -1,12 +1,12 @@
  <?= $this->extend('templates/starting_page_layout'); ?>
 
  <?= $this->section('navaction') ?>
- <?php if (logged_in()) : ?>
+ 
     <a href="<?= base_url('/admin'); ?> " class="btn btn-primary pull-right pl-3">
        <i class="material-icons mr-2">dashboard</i>
        Dashboard
     </a>
- <?php endif ?>
+ 
  <?= $this->endSection() ?>
 
  <?= $this->section('content'); ?>
