@@ -1,3 +1,13 @@
+:root {
+    --gnc-color-primary: #4F5D75;
+    --gnc-color-secondary: #5CDB95;
+    --gnc-color-info: #2E86DE;
+    --gnc-color-warning: #F4A261;
+    --gnc-color-danger: #E76F51;
+    --gnc-color-light: #EDF5E1;
+    --gnc-color-dark: #2D3142;
+}
+
 .btn-file-upload {
     position: relative;
     color: #ffff !important;
@@ -121,4 +131,62 @@
         -webkit-transform: scale(1.0);
         transform: scale(1.0);
     }
+}
+
+.card {
+    border-radius: 15px !important;
+}
+
+.card .card-header-primary,
+.card .card-header-info,
+.card .card-header-success,
+.card .card-header-warning,
+.card .card-header-danger {
+    border-radius: 15px;
+}
+
+.row-eq-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row-eq-height>[class*="col-"] {
+    display: flex;
+    flex-direction: column;
+}
+
+.row-eq-height>[class*="col-"]>.card {
+    flex-grow: 1;
+}
+
+.card-header-primary {
+    background-color: var(--gnc-color-primary) !important;
+}
+
+.card-header-success {
+    background-color: var(--gnc-color-secondary) !important;
+}
+
+.card-header-info {
+    background-color: var(--gnc-color-info) !important;
+}
+
+.card-header-danger {
+    background-color: var(--gnc-color-danger) !important;
+}
+
+.text-primary {
+    color: var(--gnc-color-primary) !important;
+}
+
+.text-success {
+    color: var(--gnc-color-secondary) !important;
+}
+
+.text-info {
+    color: var(--gnc-color-info) !important;
+}
+
+.text-danger {
+    color: var(--gnc-color-danger) !important;
 }

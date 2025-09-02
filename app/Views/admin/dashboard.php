@@ -3,7 +3,7 @@
 <div class="content">
     <div class="container-fluid">
         <!-- REKAP JUMLAH DATA -->
-        <div class="row">
+        <div class="row row-eq-height">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-header card-header-primary card-header-icon">
@@ -84,7 +84,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-info">
                         <h4 class="card-title"><b>Absensi Siswa Hari Ini</b></h4>
                         <p class="card-category"><?= $dateNow; ?></p>
                     </div>
@@ -143,7 +143,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card card-chart">
-                    <div class="card-header card-header-primary">
+                    <div class="card-header card-header-info">
                         <div class="ct-chart" id="kehadiranSiswa"></div>
                     </div>
                     <div class="card-body">
@@ -152,7 +152,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-primary">checklist</i> <a class="text-primary" href="<?= base_url('admin/absen-siswa'); ?>">Lihat data</a>
+                            <i class="material-icons text-info">checklist</i> <a class="text-info" href="<?= base_url('admin/absen-siswa'); ?>">Lihat data</a>
                         </div>
                     </div>
                 </div>
