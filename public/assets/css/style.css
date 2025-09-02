@@ -190,3 +190,162 @@
 .text-danger {
     color: var(--gnc-color-danger) !important;
 }
+
+/* Dashboard Redesign */
+.main-panel {
+    background-color: #f5f7fa !important;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.stat-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card .icon {
+    font-size: 36px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.stat-card .icon.siswa { background-color: #3498db; }
+.stat-card .icon.guru { background-color: #2ecc71; }
+.stat-card .icon.kelas { background-color: #2980b9; }
+.stat-card .icon.petugas { background-color: #e67e22; }
+
+.stat-card .info .label {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.stat-card .info .value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-card .info .status {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.dashboard-section {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.attendance-block {
+    border-radius: 12px;
+    padding: 24px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.attendance-block.teal {
+    background: linear-gradient(45deg, #1abc9c, #16a085);
+}
+
+.attendance-block.green {
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.attendance-block .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.attendance-block .title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.attendance-block .date {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.attendance-block .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    text-align: center;
+}
+
+.attendance-block .stat-item .label {
+    font-size: 13px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #fff;
+    display: inline-block;
+}
+
+.attendance-block .stat-item .label.hadir { background-color: rgba(255, 255, 255, 0.2); }
+.attendance-block .stat-item .label.sakit { background-color: rgba(255, 255, 255, 0.2); }
+.attendance-block .stat-item .label.izin { background-color: rgba(255, 255, 255, 0.2); }
+.attendance-block .stat-item .label.alfa { background-color: rgba(255, 255, 255, 0.2); }
+
+.attendance-block .stat-item .value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.chart-container {
+    border-radius: 12px;
+    padding: 24px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.chart-container.teal {
+    background: linear-gradient(45deg, #1abc9c, #16a085);
+}
+
+.chart-container.light-green {
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+.chart-container .chart-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid, .dashboard-section {
+        grid-template-columns: 1fr;
+    }
+}
