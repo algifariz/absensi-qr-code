@@ -8,16 +8,7 @@
    <?= $this->include('templates/css'); ?>
    <title>Absensi QR Code</title>
    <style>
-      .bg {
-         background: url(<?= base_url('assets/img/bg2.jpg'); ?>) center;
-         opacity: 0.1;
-         background-size: cover;
-         height: 100vh;
-         width: 100%;
-         position: absolute;
-         left: 0;
-         top: 0;
-      }
+      
 
       .main-panel {
          position: relative;
@@ -52,7 +43,7 @@
 </head>
 
 <body>
-   <div class="bg bg-image"></div>
+
    <!-- Navbar -->
    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
       <div class="container-fluid">
