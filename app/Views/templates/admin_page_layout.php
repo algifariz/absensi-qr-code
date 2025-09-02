@@ -3,7 +3,12 @@
 
 <?= $this->include('templates/head') ?>
 
-<body>
+<?php
+$request = \Config\Services::request();
+$is_dashboard = $request->uri->getPath() == 'admin/dashboard';
+?>
+
+<body class="<?= !$is_dashboard ? 'custom-theme' : '' ?>">
    <div>
       <?= $this->include('templates/sidebar') ?>
       <div class="main-panel">

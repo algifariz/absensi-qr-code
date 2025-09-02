@@ -1,26 +1,8 @@
 <?php
 $context = $ctx ?? 'dashboard';
-switch ($context) {
-   case 'absen-siswa':
-   case 'siswa':
-   case 'kelas':
-      $sidebarColor = 'purple';
-      break;
-   case 'absen-guru':
-   case 'guru':
-      $sidebarColor = 'green';
-      break;
-
-   case 'qr':
-      $sidebarColor = 'danger';
-      break;
-
-   default:
-      $sidebarColor = 'azure';
-      break;
-}
+$sidebarColor = 'purple';
 ?>
-<div class="sidebar" data-color="<?= $sidebarColor; ?>" data-background-color="black" data-image="<?= base_url('assets/img/sidebar/sidebar-1.jpg'); ?>">
+<div class="sidebar" data-color="<?= $sidebarColor; ?>" data-background-color="black">
    <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
