@@ -6,6 +6,7 @@ use Myth\Auth\Config\Auth as MythAuthConfig;
 
 class Auth extends MythAuthConfig
 {
+    public $landingRoute = '/admin/dashboard';
     /**
      * --------------------------------------------------------------------
      * Require Confirmation Registration via Email
