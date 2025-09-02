@@ -80,7 +80,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             'honeypot',
-            'login' => ['except' => ['/', 'scan', 'scan/*']],
+            'login' => ['except' => ['/', 'scan', 'scan/masuk', 'scan/pulang', 'scan/cek']],
             // 'csrf',
             // 'invalidchars',
         ],
