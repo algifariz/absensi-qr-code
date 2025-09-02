@@ -6,5 +6,6 @@
    <?= $this->include('templates/css'); ?>
    <title><?= $title ?></title>
    <?= $this->include('templates/js') ?>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    <script>var BaseConfig = {baseURL: '<?= base_url(); ?>', csrfTokenName: '<?= csrf_token() ?>', textOk: "Ok", textCancel: "Batalkan"};</script>
 </head>

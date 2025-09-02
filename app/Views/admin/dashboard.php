@@ -2,272 +2,203 @@
 <?= $this->section('content') ?>
 <div class="content">
     <div class="container-fluid">
-        <!-- REKAP JUMLAH DATA -->
-        <div class="row row-eq-height">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                            <a href="<?= base_url('admin/siswa'); ?>" class="text-white">
-                                <i class="material-icons">person</i>
-                            </a>
-                        </div>
-                        <p class="card-category">Jumlah siswa</p>
-                        <h3 class="card-title"><?= count($siswa); ?></h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-primary">check</i>
-                            Terdaftar
-                        </div>
-                    </div>
+        <!-- Stat Cards -->
+        <div class="dashboard-grid">
+            <!-- Card Siswa -->
+            <div class="stat-card">
+                <div class="icon siswa">
+                    <i class="material-icons">person</i>
+                </div>
+                <div class="info">
+                    <div class="label">Jumlah Siswa</div>
+                    <div class="value"><?= count($siswa); ?></div>
+                    <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-success card-header-icon">
-                        <div class="card-icon">
-                            <a href="<?= base_url('admin/guru'); ?>" class="text-white">
-                                <i class="material-icons">person_4</i>
-                            </a>
-                        </div>
-                        <p class="card-category">Jumlah guru</p>
-                        <h3 class="card-title"><?= count($guru); ?></h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-success">check</i>
-                            Terdaftar
-                        </div>
-                    </div>
+            <!-- Card Guru -->
+            <div class="stat-card">
+                <div class="icon guru">
+                    <i class="material-icons">person</i>
+                </div>
+                <div class="info">
+                    <div class="label">Jumlah Guru</div>
+                    <div class="value"><?= count($guru); ?></div>
+                    <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-info card-header-icon">
-                        <div class="card-icon">
-                            <a href="<?= base_url('admin/kelas'); ?>" class="text-white">
-                                <i class="material-icons">grade</i>
-                            </a>
-                        </div>
-                        <p class="card-category">Jumlah kelas</p>
-                        <h3 class="card-title"><?= count($kelas); ?></h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">home</i>
-                            <?= $generalSettings->school_name; ?>
-                        </div>
-                    </div>
+            <!-- Card Kelas -->
+            <div class="stat-card">
+                <div class="icon kelas">
+                    <i class="material-icons">star</i>
+                </div>
+                <div class="info">
+                    <div class="label">Jumlah Kelas</div>
+                    <div class="value"><?= count($kelas); ?></div>
+                    <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header card-header-danger card-header-icon">
-                        <div class="card-icon">
-                            <a href="<?= base_url('admin/petugas'); ?>" class="text-white">
-                                <i class="material-icons">settings</i>
-                            </a>
-                        </div>
-                        <p class="card-category">Jumlah petugas</p>
-                        <h3 class="card-title"><?= count($petugas); ?></h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">person</i>
-                            Petugas dan Administrator
-                        </div>
-                    </div>
+            <!-- Card Petugas -->
+            <div class="stat-card">
+                <div class="icon petugas">
+                    <i class="material-icons">settings</i>
+                </div>
+                <div class="info">
+                    <div class="label">Jumlah Petugas</div>
+                    <div class="value"><?= count($petugas); ?></div>
+                    <div class="status">✓ Terdaftar</div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header card-header-info">
-                        <h4 class="card-title"><b>Absensi Siswa Hari Ini</b></h4>
-                        <p class="card-category"><?= $dateNow; ?></p>
+
+        <!-- Attendance and Charts Section -->
+        <div class="dashboard-section">
+            <!-- Student Attendance -->
+            <div class="attendance-block teal">
+                <div class="header">
+                    <div class="title">Absensi Siswa Hari Ini</div>
+                    <div class="date"><?= $dateNow ?></div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="label hadir" style="background-color: #2ecc71;">Hadir</div>
+                        <div class="value"><?= $jumlahKehadiranSiswa['hadir'] ?></div>
                     </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3">
-                                <h4 class="text-success"><b>Hadir</b></h4>
-                                <h3><?= $jumlahKehadiranSiswa['hadir']; ?></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="text-warning"><b>Sakit</b></h4>
-                                <h3><?= $jumlahKehadiranSiswa['sakit']; ?></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="text-info"><b>Izin</b></h4>
-                                <h3><?= $jumlahKehadiranSiswa['izin']; ?></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="text-danger"><b>Alfa</b></h4>
-                                <h3><?= $jumlahKehadiranSiswa['alfa']; ?></h3>
-                            </div>
-                        </div>
+                    <div class="stat-item">
+                        <div class="label sakit" style="background-color: #f1c40f;">Sakit</div>
+                        <div class="value"><?= $jumlahKehadiranSiswa['sakit'] ?></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="label izin" style="background-color: #e67e22;">Izin</div>
+                        <div class="value"><?= $jumlahKehadiranSiswa['izin'] ?></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="label alfa" style="background-color: #e74c3c;">Alfa</div>
+                        <div class="value"><?= $jumlahKehadiranSiswa['alfa'] ?></div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title"><b>Absensi Guru Hari Ini</b></h4>
-                        <p class="card-category"><?= $dateNow; ?></p>
+
+            <!-- Teacher Attendance -->
+            <div class="attendance-block green">
+                <div class="header">
+                    <div class="title">Absensi Guru Hari Ini</div>
+                    <div class="date"><?= $dateNow ?></div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="label hadir" style="background-color: #2ecc71;">Hadir</div>
+                        <div class="value"><?= $jumlahKehadiranGuru['hadir'] ?></div>
                     </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3">
-                                <h4 class="text-success"><b>Hadir</b></h4>
-                                <h3><?= $jumlahKehadiranGuru['hadir']; ?></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="text-warning"><b>Sakit</b></h4>
-                                <h3><?= $jumlahKehadiranGuru['sakit']; ?></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="text-info"><b>Izin</b></h4>
-                                <h3><?= $jumlahKehadiranGuru['izin']; ?></h3>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="text-danger"><b>Alfa</b></h4>
-                                <h3><?= $jumlahKehadiranGuru['alfa']; ?></h3>
-                            </div>
-                        </div>
+                    <div class="stat-item">
+                        <div class="label sakit" style="background-color: #f1c40f;">Sakit</div>
+                        <div class="value"><?= $jumlahKehadiranGuru['sakit'] ?></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="label izin" style="background-color: #e67e22;">Izin</div>
+                        <div class="value"><?= $jumlahKehadiranGuru['izin'] ?></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="label alfa" style="background-color: #e74c3c;">Alfa</div>
+                        <div class="value"><?= $jumlahKehadiranGuru['alfa'] ?></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- GRAFIK CHART -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-chart">
-                    <div class="card-header card-header-info">
-                        <div class="ct-chart" id="kehadiranSiswa"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Tingkat kehadiran siswa</h4>
-                        <p class="card-category">Jumlah kehadiran siswa dalam 7 hari terakhir</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-info">checklist</i> <a class="text-info" href="<?= base_url('admin/absen-siswa'); ?>">Lihat data</a>
-                        </div>
-                    </div>
-                </div>
+
+            <!-- Student Chart -->
+            <div class="chart-container teal">
+                <div class="chart-title">Grafik Kehadiran Siswa (7 Hari Terakhir)</div>
+                <canvas id="studentAttendanceChart"></canvas>
             </div>
-            <div class="col-md-6">
-                <div class="card card-chart">
-                    <div class="card-header card-header-success">
-                        <div class="ct-chart" id="kehadiranGuru"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Tingkat kehadiran guru</h4>
-                        <p class="card-category">Jumlah kehadiran guru dalam 7 hari terakhir</p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons text-success">checklist</i> <a class="text-success" href="<?= base_url('admin/absen-guru'); ?>">Lihat data</a>
-                        </div>
-                    </div>
-                </div>
+
+            <!-- Teacher Chart -->
+            <div class="chart-container light-green">
+                <div class="chart-title">Grafik Kehadiran Guru (7 Hari Terakhir)</div>
+                <canvas id="teacherAttendanceChart"></canvas>
             </div>
         </div>
     </div>
 </div>
-<!-- Chartist JS -->
-<script src="<?= base_url('assets/js/plugins/chartist.min.js') ?>"></script>
+
 <script>
-    $(document).ready(function() {
-        initDashboardPageCharts();
+document.addEventListener("DOMContentLoaded", function() {
+    const dateLabels = <?= json_encode($dateRange) ?>;
+    const studentData = <?= json_encode($grafikKehadiranSiswa) ?>;
+    const teacherData = <?= json_encode($grafikkKehadiranGuru) ?>;
+
+    const createChartOptions = (maxValue) => ({
+        scales: {
+            y: {
+                beginAtZero: true,
+                min: 0,
+                max: Math.max(1, maxValue),
+                ticks: {
+                    color: '#fff',
+                    stepSize: 0.5,
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.2)',
+                    borderDash: [2, 2],
+                    drawBorder: false,
+                }
+            },
+            x: {
+                ticks: {
+                    color: '#fff'
+                },
+                grid: {
+                    display: false
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        elements: {
+            line: {
+                borderColor: '#fff',
+                borderWidth: 2,
+                tension: 0.4
+            },
+            point: {
+                backgroundColor: '#fff',
+                radius: 4,
+                hoverRadius: 6
+            }
+        }
     });
 
-    function initDashboardPageCharts() {
+    const maxStudent = Math.max(...studentData, 0);
+    const maxTeacher = Math.max(...teacherData, 0);
 
-        if ($('#kehadiranSiswa').length != 0) {
-            /* ----------==========     Chart tingkat kehadiran siswa    ==========---------- */
-            const dataKehadiranSiswa = [<?php foreach ($grafikKehadiranSiswa as $value) echo "$value,"; ?>];
+    // Student Attendance Chart
+    new Chart(document.getElementById('studentAttendanceChart'), {
+        type: 'line',
+        data: {
+            labels: dateLabels,
+            datasets: [{
+                label: 'Kehadiran Siswa',
+                data: studentData,
+                fill: false,
+            }]
+        },
+        options: createChartOptions(maxStudent)
+    });
 
-            const chartKehadiranSiswa = {
-                labels: [
-                    <?php
-                    foreach ($dateRange as  $value) {
-                        echo "'$value',";
-                    }
-                    ?>
-                ],
-                series: [dataKehadiranSiswa]
-            };
-
-            var highestData = 0;
-
-            dataKehadiranSiswa.forEach(e => {
-                if (e >= highestData) {
-                    highestData = e;
-                }
-            })
-
-            const optionsChart = {
-                lineSmooth: Chartist.Interpolation.cardinal({
-                    tension: 0
-                }),
-                low: 0,
-                high: highestData + (highestData / 4),
-                chartPadding: {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                }
-            }
-
-            var kehadiranSiswaChart = new Chartist.Line('#kehadiranSiswa', chartKehadiranSiswa, optionsChart);
-
-            md.startAnimationForLineChart(kehadiranSiswaChart);
-        }
-
-        if ($('#kehadiranGuru').length != 0) {
-            /* ----------==========     Chart tingkat kehadiran guru    ==========---------- */
-            const dataKehadiranGuru = [<?php foreach ($grafikkKehadiranGuru as $value) echo "$value,"; ?>];
-
-            const chartKehadiranGuru = {
-                labels: [
-                    <?php
-                    foreach ($dateRange as  $value) {
-                        echo "'$value',";
-                    }
-                    ?>
-                ],
-                series: [dataKehadiranGuru]
-            };
-
-            var highestData = 0;
-
-            dataKehadiranGuru.forEach(e => {
-                if (e >= highestData) {
-                    highestData = e;
-                }
-            })
-
-            const optionsChart = {
-                lineSmooth: Chartist.Interpolation.cardinal({
-                    tension: 0
-                }),
-                low: 0,
-                high: highestData + (highestData / 4),
-                chartPadding: {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                }
-            }
-
-            var kehadiranGuruChart = new Chartist.Line('#kehadiranGuru', chartKehadiranGuru, optionsChart);
-
-            md.startAnimationForLineChart(kehadiranGuruChart);
-        }
-    }
+    // Teacher Attendance Chart
+    new Chart(document.getElementById('teacherAttendanceChart'), {
+        type: 'line',
+        data: {
+            labels: dateLabels,
+            datasets: [{
+                label: 'Kehadiran Guru',
+                data: teacherData,
+                fill: false
+            }]
+        },
+        options: createChartOptions(maxTeacher)
+    });
+});
 </script>
 <?= $this->endSection() ?>
