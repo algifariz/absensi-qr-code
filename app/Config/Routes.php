@@ -32,18 +32,17 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// Scan
-$routes->get('/', 'Scan::index');
+// Root route redirects to login page via Home controller
+$routes->get('/', 'Home::index');
 
+// Scan
 $routes->group('scan', function (RouteCollection $routes) {
-   $routes->get('', 'Scan::index');
+   $routes->get('/', 'Scan::index');
    $routes->get('masuk', 'Scan::index/Masuk');
    $routes->get('pulang', 'Scan::index/Pulang');
 
    $routes->post('cek', 'Scan::cekKode');
 });
-
-
 
 // Admin
 $routes->group('admin', function (RouteCollection $routes) {
