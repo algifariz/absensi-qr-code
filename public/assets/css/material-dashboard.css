@@ -18441,7 +18441,7 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 
 .card .card-body,
 .card .card-footer {
-  padding: 0.9375rem 1.875rem;
+  padding: 1.25rem;
 }
 
 .card .card-body + .card-footer {
@@ -18504,7 +18504,6 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   z-index: 1;
   margin-left: 15px;
   margin-right: 15px;
-  margin-top: -30px;
   border-radius: 6px;
 }
 
@@ -18819,7 +18818,6 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .card .card-actions {
-  position: absolute;
   z-index: 1;
   top: -50px;
   width: calc(100% - 30px);
@@ -18889,9 +18887,8 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
 }
 
 .card [class*="card-header-"] {
-  margin: 0px 15px 0;
-  padding: 0;
-  position: relative;
+  margin: 15px;
+  padding: 1.25rem;
 }
 
 .card [class*="card-header-"] .card-title + .card-category {
@@ -18907,7 +18904,6 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
     .card-header-image
   ) {
   border-radius: 3px;
-  margin-top: -20px;
   padding: 15px;
 }
 
