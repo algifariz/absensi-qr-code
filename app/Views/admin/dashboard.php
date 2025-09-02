@@ -7,7 +7,7 @@
             <!-- Card Siswa -->
              <a href="<?= base_url('admin/siswa'); ?>" class="text-white">
             <div class="stat-card">
-                <div class="icon siswa">
+                <div class="icon bg-blue">
                     <i class="material-icons">person</i>
                 </div>
                 <div class="info">
@@ -20,7 +20,7 @@
             <!-- Card Guru -->
              <a href="<?= base_url('admin/guru'); ?>" class="text-white">
             <div class="stat-card">
-                <div class="icon guru">
+                <div class="icon bg-blue">
                     <i class="material-icons">person</i>
                 </div>
                 <div class="info">
@@ -33,7 +33,7 @@
             <!-- Card Kelas -->
              <a href="<?= base_url('admin/kelas'); ?>" class="text-white">
             <div class="stat-card">
-                <div class="icon kelas">
+                <div class="icon bg-blue">
                     <i class="material-icons">star</i>
                 </div>
                 <div class="info">
@@ -46,7 +46,7 @@
             <!-- Card Petugas -->
              <a href="<?= base_url('admin/petugas'); ?>" class="text-white">
             <div class="stat-card">
-                <div class="icon petugas">
+                <div class="icon bg-blue">
                     <i class="material-icons">settings</i>
                 </div>
                 <div class="info">
@@ -61,7 +61,7 @@
         <!-- Attendance and Charts Section -->
         <div class="dashboard-section">
             <!-- Student Attendance -->
-            <div class="attendance-block teal">
+            <div class="attendance-block">
                 <div class="header">
                     <div class="title">Absensi Siswa Hari Ini</div>
                     <div class="date"><?= $dateNow ?></div>
@@ -87,7 +87,7 @@
             </div>
 
             <!-- Teacher Attendance -->
-            <div class="attendance-block green">
+            <div class="attendance-block">
                 <div class="header">
                     <div class="title">Absensi Guru Hari Ini</div>
                     <div class="date"><?= $dateNow ?></div>
@@ -113,13 +113,13 @@
             </div>
 
             <!-- Student Chart -->
-            <div class="chart-container teal">
+            <div class="chart-container">
                 <div class="chart-title">Grafik Kehadiran Siswa (7 Hari Terakhir)</div>
                 <canvas id="studentAttendanceChart"></canvas>
             </div>
 
             <!-- Teacher Chart -->
-            <div class="chart-container light-green">
+            <div class="chart-container">
                 <div class="chart-title">Grafik Kehadiran Guru (7 Hari Terakhir)</div>
                 <canvas id="teacherAttendanceChart"></canvas>
             </div>
