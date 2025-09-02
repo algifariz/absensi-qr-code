@@ -6,6 +6,7 @@ use Myth\Auth\Config\Auth as MythAuthConfig;
 
 class Auth extends MythAuthConfig
 {
+    
     /**
      * --------------------------------------------------------------------
      * Require Confirmation Registration via Email
