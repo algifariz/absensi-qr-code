@@ -6,7 +6,6 @@
 <?= $this->section('content'); ?>
 <?php
 $oppBtn = '';
-
 $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
 ?>
 <div class="main-panel">
@@ -29,7 +28,6 @@ $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
                             <ul class="pl-3">
                                 <li>Jika berhasil scan maka akan muncul data siswa/guru di samping kanan preview kamera</li>
                                 <li>Klik tombol <b><span class="text-success">Absen masuk</span> / <span class="text-warning">Absen pulang</span></b> untuk mengubah waktu absensi</li>
-
                                 <li>Untuk mengakses halaman petugas anda harus login terlebih dahulu</li>
                             </ul>
                         </div>
@@ -70,16 +68,24 @@ $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
     </div>
 </div>
 
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="<?= base_url('assets/js/plugins/html5-qrcode.min.js') ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
     let audio = new Audio("<?= base_url('assets/audio/beep.mp3'); ?>");
+    let isProcessing = false;
 
     function onScanSuccess(decodedText, decodedResult) {
+        if (isProcessing) {
+            return;
+        }
+        isProcessing = true;
         console.log(`Code matched = ${decodedText}`, decodedResult);
         cekData(decodedText);
-        html5QrcodeScanner.clear();
+    }
+
+    function onScanFailure(error) {
+      // Tidak melakukan apa-apa saat gagal scan
     }
 
     let config = {
@@ -94,8 +100,7 @@ $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader", config, /* verbose= */ false);
-    html5QrcodeScanner.render(onScanSuccess);
-
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 
     async function cekData(code) {
         jQuery.ajax({
@@ -110,18 +115,20 @@ $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
                 console.log(response);
                 $('#hasilScan').html(response);
                 setTimeout(() => {
-                    location.reload();
+                    isProcessing = false;
+                    clearData();
                 }, 1500)
             },
             error: function(xhr, status, thrown) {
                 console.log(thrown);
                 $('#hasilScan').html(thrown);
+                isProcessing = false;
             }
         });
     }
 
     function clearData() {
-        $('#hasilScan').html('');
+       $('#hasilScan').html('');
     }
 </script>
 
