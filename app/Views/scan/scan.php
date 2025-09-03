@@ -97,6 +97,7 @@
     const formats = [ZXing.BarcodeFormat.QR_CODE];
 
     hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
+    hints.set(ZXing.DecodeHintType.PURE_BARCODE, true);
     hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
 
     const codeReader = new ZXing.BrowserMultiFormatReader(hints);
