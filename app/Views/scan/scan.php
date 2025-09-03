@@ -61,12 +61,7 @@
 
                       <div class="row">
                          <div class="col-sm-12 mx-auto">
-                            <div class="previewParent">
-                               <div class="text-center">
-                                  <h4 class="d-none w-100" id="searching"><b>Mencari...</b></h4>
-                               </div>
-                               <video id="previewKamera"></video>
-                            </div>
+                            <div id="reader"></div>
                          </div>
                       </div>
                    </div>
@@ -87,99 +82,100 @@
     </div>
  </div>
 
- <script type="text/javascript" src="<?= base_url('assets/js/plugins/zxing/zxing.min.js') ?>"></script>
+ <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
  <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
- <script type="text/javascript">
+ <script>
     let selectedDeviceId = null;
     let audio = new Audio("<?= base_url('assets/audio/beep.mp3'); ?>");
-
-    const hints = new Map();
-    const formats = [ZXing.BarcodeFormat.QR_CODE];
-
-    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
-    hints.set(ZXing.DecodeHintType.PURE_BARCODE, true);
-    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
-
-    const codeReader = new ZXing.BrowserMultiFormatReader(hints);
     const sourceSelect = $('#pilihKamera');
+    const html5QrCode = new Html5Qrcode("reader");
 
-    $(document).on('change', '#pilihKamera', function() {
-       selectedDeviceId = $(this).val();
-       if (codeReader) {
-          codeReader.reset();
-          initScanner();
-       }
-    })
+    function onScanSuccess(decodedText, decodedResult) {
+        // handle the scanned code as you like, for example:
+        console.log(`Code matched = ${decodedText}`, decodedResult);
+        cekData(decodedText);
 
-    const previewParent = document.getElementById('previewParent');
-    const preview = document.getElementById('previewKamera');
+        // temporarily stop scanning
+        html5QrCode.stop().then((ignore) => {
+            // reset and restart scanning after a delay
+            setTimeout(() => {
+                startScanning();
+            }, 1500);
+        }).catch((err) => {
+            console.log("Failed to stop scanning.", err);
+        });
+    }
 
-    function initScanner() {
-       codeReader.listVideoInputDevices()
-          .then(videoInputDevices => {
-             videoInputDevices.forEach(device =>
-                console.log(`${device.label}, ${device.deviceId}`)
-             );
+    function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        // console.warn(`Code scan error = ${error}`);
+    }
 
-             if (videoInputDevices.length < 1) {
-                alert("Camera not found!");
-                return;
-             }
+    function startScanning() {
+        html5QrCode.start(
+            selectedDeviceId, {
+                fps: 10,
+                qrbox: {
+                    width: 250,
+                    height: 250
+                }
+            },
+            onScanSuccess,
+            onScanFailure
+        ).catch((err) => {
+            console.log(`Unable to start scanning, error: ${err}`);
+        });
+    }
 
-             if (selectedDeviceId == null) {
-                if (videoInputDevices.length <= 1) {
-                   selectedDeviceId = videoInputDevices[0].deviceId
+    function initScanner(cameras) {
+        if (cameras && cameras.length) {
+
+            if (selectedDeviceId == null) {
+                if (cameras.length <= 1) {
+                   selectedDeviceId = cameras[0].id
                 } else {
-                   selectedDeviceId = videoInputDevices[1].deviceId
+                   selectedDeviceId = cameras[1].id
                 }
              }
 
-             if (videoInputDevices.length >= 1) {
-                sourceSelect.html('');
-                videoInputDevices.forEach((element) => {
-                   const sourceOption = document.createElement('option')
-                   sourceOption.text = element.label
-                   sourceOption.value = element.deviceId
-                   if (element.deviceId == selectedDeviceId) {
-                      sourceOption.selected = 'selected';
-                   }
-                   sourceSelect.append(sourceOption)
-                })
-             }
+            sourceSelect.html('');
+            cameras.forEach((camera) => {
+                const sourceOption = document.createElement('option');
+                sourceOption.text = camera.label;
+                sourceOption.value = camera.id;
+                if (camera.id == selectedDeviceId) {
+                    sourceOption.selected = 'selected';
+                }
+                sourceSelect.append(sourceOption);
+            });
 
-             $('#previewParent').removeClass('unpreview');
-             $('#previewKamera').removeClass('d-none');
-             $('#searching').addClass('d-none');
-
-             codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'previewKamera')
-                .then(result => {
-                   console.log(result.text);
-                   cekData(result.text);
-
-                   $('#previewKamera').addClass('d-none');
-                   $('#previewParent').addClass('unpreview');
-                   $('#searching').removeClass('d-none');
-
-                   if (codeReader) {
-                      codeReader.reset();
-
-                      // delay 1,5 detik setelah berhasil meng-scan
-                      setTimeout(() => {
-                         initScanner();
-                      }, 1500);
-                   }
-                })
-                .catch(err => console.error(err));
-
-          })
-          .catch(err => console.error(err));
+            startScanning();
+        }
     }
 
-    if (navigator.mediaDevices) {
-       initScanner();
-    } else {
-       alert('Cannot access camera.');
-    }
+    // This method will trigger user permissions
+    Html5Qrcode.getCameras().then(devices => {
+        console.log("Cameras found", devices);
+        if (devices && devices.length) {
+            initScanner(devices);
+        }
+    }).catch(err => {
+        // handle err
+        console.log("Error getting cameras", err);
+        alert('Cannot access camera.');
+    });
+
+    $(document).on('change', '#pilihKamera', function() {
+        selectedDeviceId = $(this).val();
+        if (html5QrCode.isScanning) {
+            html5QrCode.stop().then(() => {
+                startScanning();
+            }).catch((err) => {
+                console.log("Failed to stop and restart scanning.", err);
+            });
+        }
+    });
 
     async function cekData(code) {
        jQuery.ajax({

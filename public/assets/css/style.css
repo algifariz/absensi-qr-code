@@ -249,6 +249,15 @@
   color: #333;
 }
 
+#reader {
+    width: 100%;
+}
+
+#reader video {
+    width: 100% !important;
+    height: auto !important;
+}
+
 .stat-card .info .status {
   font-size: 12px;
   color: #aaa;
