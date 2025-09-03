@@ -42,6 +42,7 @@ $routes->group('scan', function (RouteCollection $routes) {
    $routes->get('pulang', 'Scan::index/Pulang');
 
    $routes->post('cek', 'Scan::cekKode');
+   $routes->get('getalldata', 'Scan::getAllData');
 });
 
 // Admin

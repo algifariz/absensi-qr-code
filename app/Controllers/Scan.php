@@ -243,4 +243,33 @@ class Scan extends BaseController
       }
       $whatsapp->sendMessage($message);
    }
+
+   public function getAllData()
+   {
+      $students = $this->siswaModel->findAll();
+      $teachers = $this->guruModel->findAll();
+
+      $data = [
+         'students' => [],
+         'teachers' => [],
+      ];
+
+      foreach ($students as $student) {
+         $data['students'][] = [
+            'unique_code' => $student['unique_code'],
+            'name' => $student['nama_siswa'],
+            'nis' => $student['nis'],
+         ];
+      }
+
+      foreach ($teachers as $teacher) {
+         $data['teachers'][] = [
+            'unique_code' => $teacher['unique_code'],
+            'name' => $teacher['nama_guru'],
+            'nuptk' => $teacher['nuptk'],
+         ];
+      }
+
+      return $this->response->setJSON($data);
+   }
 }

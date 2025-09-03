@@ -65,7 +65,7 @@
                                <div class="text-center">
                                   <h4 class="d-none w-100" id="searching"><b>Mencari...</b></h4>
                                </div>
-                               <video id="previewKamera"></video>
+                               <div id="previewKamera"></div>
                             </div>
                          </div>
                       </div>
@@ -87,122 +87,176 @@
     </div>
  </div>
 
- <script type="text/javascript" src="<?= base_url('assets/js/plugins/zxing/zxing.min.js') ?>"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js" integrity="sha512-r6rDA7W6ZeQhvl8S7yRVQUKVHdexq+GAlNkNNqVC7Yy9+L8yIOeGuH3AuH5SO_hRqrffUsnaxcNQouJda_G0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
  <script type="text/javascript">
     let selectedDeviceId = null;
     let audio = new Audio("<?= base_url('assets/audio/beep.mp3'); ?>");
+    let html5QrcodeScanner;
 
-    const hints = new Map();
-    const formats = [ZXing.BarcodeFormat.QR_CODE];
-
-    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
-    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
-
-    const codeReader = new ZXing.BrowserMultiFormatReader(hints);
     const sourceSelect = $('#pilihKamera');
 
-    $(document).on('change', '#pilihKamera', function() {
-       selectedDeviceId = $(this).val();
-       if (codeReader) {
-          codeReader.reset();
-          initScanner();
-       }
-    })
-
-    const previewParent = document.getElementById('previewParent');
-    const preview = document.getElementById('previewKamera');
-
-    function initScanner() {
-       codeReader.listVideoInputDevices()
-          .then(videoInputDevices => {
-             videoInputDevices.forEach(device =>
-                console.log(`${device.label}, ${device.deviceId}`)
-             );
-
-             if (videoInputDevices.length < 1) {
-                alert("Camera not found!");
-                return;
-             }
-
-             if (selectedDeviceId == null) {
-                if (videoInputDevices.length <= 1) {
-                   selectedDeviceId = videoInputDevices[0].deviceId
-                } else {
-                   selectedDeviceId = videoInputDevices[1].deviceId
-                }
-             }
-
-             if (videoInputDevices.length >= 1) {
-                sourceSelect.html('');
-                videoInputDevices.forEach((element) => {
-                   const sourceOption = document.createElement('option')
-                   sourceOption.text = element.label
-                   sourceOption.value = element.deviceId
-                   if (element.deviceId == selectedDeviceId) {
-                      sourceOption.selected = 'selected';
-                   }
-                   sourceSelect.append(sourceOption)
-                })
-             }
-
-             $('#previewParent').removeClass('unpreview');
-             $('#previewKamera').removeClass('d-none');
-             $('#searching').addClass('d-none');
-
-             codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'previewKamera')
-                .then(result => {
-                   console.log(result.text);
-                   cekData(result.text);
-
-                   $('#previewKamera').addClass('d-none');
-                   $('#previewParent').addClass('unpreview');
-                   $('#searching').removeClass('d-none');
-
-                   if (codeReader) {
-                      codeReader.reset();
-
-                      // delay 1,5 detik setelah berhasil meng-scan
-                      setTimeout(() => {
-                         initScanner();
-                      }, 1500);
-                   }
-                })
-                .catch(err => console.error(err));
-
-          })
-          .catch(err => console.error(err));
+    function onScanSuccess(decodedText, decodedResult) {
+        // handle the scanned code as you like, for example:
+        console.log(`Code matched = ${decodedText}`, decodedResult);
+        cekData(decodedText);
     }
 
-    if (navigator.mediaDevices) {
-       initScanner();
-    } else {
-       alert('Cannot access camera.');
+    function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        // console.warn(`Code scan error = ${error}`);
+    }
+
+    function startScanner(deviceId) {
+        if (html5QrcodeScanner) {
+            html5QrcodeScanner.clear();
+        }
+
+        html5QrcodeScanner = new Html5QrcodeScanner(
+            "previewKamera", {
+                fps: 10,
+                qrbox: {
+                    width: 350,
+                    height: 350
+                },
+                rememberLastUsedCamera: true
+            },
+            /* verbose= */
+            false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+        $('#previewKamera').removeAttr('style');
+    }
+
+
+    $(document).on('change', '#pilihKamera', function() {
+        selectedDeviceId = $(this).val();
+        startScanner(selectedDeviceId);
+    });
+
+
+    // This method will trigger user permissions
+    Html5Qrcode.getCameras().then(devices => {
+        /**
+         * devices would be an array of objects of type:
+         * { id: "id", label: "label" }
+         */
+        if (devices && devices.length) {
+            sourceSelect.html('');
+            devices.forEach((element) => {
+                const sourceOption = document.createElement('option')
+                sourceOption.text = element.label
+                sourceOption.value = element.id
+                sourceSelect.append(sourceOption)
+            });
+
+            selectedDeviceId = devices[0].id;
+            if (devices.length > 1) {
+                selectedDeviceId = devices[1].id;
+            }
+            // start scanning.
+            startScanner(selectedDeviceId);
+        }
+    }).catch(err => {
+        // handle err
+        console.error(err);
+        alert('Cannot access camera.');
+    });
+
+    $(document).ready(function() {
+        $.ajax({
+            url: "<?= base_url('scan/getalldata'); ?>",
+            type: 'get',
+            success: function(response) {
+                localStorage.setItem('app_data', JSON.stringify(response));
+            },
+            error: function(xhr, status, thrown) {
+                console.log(thrown);
+            }
+        });
+    });
+
+    function findUser(code) {
+        let app_data = JSON.parse(localStorage.getItem('app_data'));
+        if (!app_data) {
+            return null;
+        }
+
+        let user = app_data.students.find(student => student.unique_code === code);
+        if (user) {
+            user.type = 'Siswa';
+            return user;
+        }
+
+        user = app_data.teachers.find(teacher => teacher.unique_code === code);
+        if (user) {
+            user.type = 'Guru';
+            return user;
+        }
+
+        return null;
+    }
+
+    function displayResult(user) {
+        let html = '';
+        if (user) {
+            html = `<div class="alert alert-success">Data ditemukan</div>
+            <table class="table table-bordered">
+                <tr>
+                    <td>Nama</td>
+                    <td>${user.name}</td>
+                </tr>
+                <tr>
+                    <td>Tipe</td>
+                    <td>${user.type}</td>
+                </tr>
+            </table>`;
+        } else {
+            html = `<div class="alert alert-danger">Data tidak ditemukan</div>`;
+        }
+        $('#hasilScan').html(html);
     }
 
     async function cekData(code) {
-       jQuery.ajax({
-          url: "<?= base_url('scan/cek'); ?>",
-          type: 'post',
-          data: {
-             'unique_code': code,
-             'waktu': '<?= strtolower($waktu); ?>'
-          },
-          success: function(response, status, xhr) {
-             audio.play();
-             console.log(response);
-             $('#hasilScan').html(response);
-          },
-          error: function(xhr, status, thrown) {
-             console.log(thrown);
-             $('#hasilScan').html(thrown);
-          }
-       });
+        let user = findUser(code);
+        displayResult(user);
+
+        if (navigator.onLine) {
+            jQuery.ajax({
+                url: "<?= base_url('scan/cek'); ?>",
+                type: 'post',
+                data: {
+                    'unique_code': code,
+                    'waktu': '<?= strtolower($waktu); ?>'
+                },
+                success: function(response, status, xhr) {
+                    console.log('Data sent to server');
+                },
+                error: function(xhr, status, thrown) {
+                    console.log('Failed to send data to server');
+                }
+            });
+        }
     }
 
     function clearData() {
        $('#hasilScan').html('');
     }
+
+    window.addEventListener('online', () => {
+        console.log('Became online');
+        $.ajax({
+            url: "<?= base_url('scan/getalldata'); ?>",
+            type: 'get',
+            success: function(response) {
+                localStorage.setItem('app_data', JSON.stringify(response));
+                console.log('Data synced with server');
+            },
+            error: function(xhr, status, thrown) {
+                console.log('Failed to sync data with server');
+            }
+        });
+    });
  </script>
 
  <?= $this->endSection(); ?>
