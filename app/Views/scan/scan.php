@@ -82,7 +82,7 @@
     </div>
  </div>
 
- <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+ <script src="<?= base_url('assets/js/plugins/html5-qrcode/html5-qrcode.min.js') ?>"></script>
  <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
  <script>
     let selectedDeviceId = null;
