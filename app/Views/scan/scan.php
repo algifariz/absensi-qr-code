@@ -51,24 +51,7 @@
                       </div>
                    </div>
                    <div class="card-body my-auto px-5">
-                      <h4 class="d-inline">Pilih kamera</h4>
-
-                      <select id="pilihKamera" class="custom-select w-50 ml-2" aria-label="Default select example" style="height: 35px;">
-                         <option selected>Select camera devices</option>
-                      </select>
-
-                      <br>
-
-                      <div class="row">
-                         <div class="col-sm-12 mx-auto">
-                            <div class="previewParent">
-                               <div class="text-center">
-                                  <h4 class="d-none w-100" id="searching"><b>Mencari...</b></h4>
-                               </div>
-                               <video id="previewKamera"></video>
-                            </div>
-                         </div>
-                      </div>
+                      <div id="qr-reader" width="600px"></div>
                    </div>
                 </div>
              </div>
@@ -87,98 +70,36 @@
     </div>
  </div>
 
- <script type="text/javascript" src="<?= base_url('assets/js/plugins/zxing/zxing.min.js') ?>"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js" integrity="sha512-r6rDA7W6ZeQhvl8S7yRVQUKVHdexqf+GAlNkNNqVC7Yy9+50HVoLRABgoGI9R4Za2+4Fhutcr2iCfPPaQgnpaA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
  <script type="text/javascript">
-    let selectedDeviceId = null;
     let audio = new Audio("<?= base_url('assets/audio/beep.mp3'); ?>");
 
-    const hints = new Map();
-    const formats = [ZXing.BarcodeFormat.QR_CODE];
-
-    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
-    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
-
-    const codeReader = new ZXing.BrowserMultiFormatReader(hints);
-    const sourceSelect = $('#pilihKamera');
-
-    $(document).on('change', '#pilihKamera', function() {
-       selectedDeviceId = $(this).val();
-       if (codeReader) {
-          codeReader.reset();
-          initScanner();
-       }
-    })
-
-    const previewParent = document.getElementById('previewParent');
-    const preview = document.getElementById('previewKamera');
-
-    function initScanner() {
-       codeReader.listVideoInputDevices()
-          .then(videoInputDevices => {
-             videoInputDevices.forEach(device =>
-                console.log(`${device.label}, ${device.deviceId}`)
-             );
-
-             if (videoInputDevices.length < 1) {
-                alert("Camera not found!");
-                return;
-             }
-
-             if (selectedDeviceId == null) {
-                if (videoInputDevices.length <= 1) {
-                   selectedDeviceId = videoInputDevices[0].deviceId
-                } else {
-                   selectedDeviceId = videoInputDevices[1].deviceId
-                }
-             }
-
-             if (videoInputDevices.length >= 1) {
-                sourceSelect.html('');
-                videoInputDevices.forEach((element) => {
-                   const sourceOption = document.createElement('option')
-                   sourceOption.text = element.label
-                   sourceOption.value = element.deviceId
-                   if (element.deviceId == selectedDeviceId) {
-                      sourceOption.selected = 'selected';
-                   }
-                   sourceSelect.append(sourceOption)
-                })
-             }
-
-             $('#previewParent').removeClass('unpreview');
-             $('#previewKamera').removeClass('d-none');
-             $('#searching').addClass('d-none');
-
-             codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'previewKamera')
-                .then(result => {
-                   console.log(result.text);
-                   cekData(result.text);
-
-                   $('#previewKamera').addClass('d-none');
-                   $('#previewParent').addClass('unpreview');
-                   $('#searching').removeClass('d-none');
-
-                   if (codeReader) {
-                      codeReader.reset();
-
-                      // delay 1,5 detik setelah berhasil meng-scan
-                      setTimeout(() => {
-                         initScanner();
-                      }, 1500);
-                   }
-                })
-                .catch(err => console.error(err));
-
-          })
-          .catch(err => console.error(err));
+    function onScanSuccess(decodedText, decodedResult) {
+       // handle the scanned code as you like, for example:
+       console.log(`Code matched = ${decodedText}`, decodedResult);
+       cekData(decodedText);
+       html5QrcodeScanner.clear();
     }
 
-    if (navigator.mediaDevices) {
-       initScanner();
-    } else {
-       alert('Cannot access camera.');
+    function onScanFailure(error) {
+       // handle scan failure, usually better to ignore and keep scanning.
+       // for example:
+       console.warn(`Code scan error = ${error}`);
     }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+       "qr-reader", {
+          fps: 10,
+          qrbox: {
+             width: 250,
+             height: 250
+          }
+       },
+       /* verbose= */
+       false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
 
     async function cekData(code) {
        jQuery.ajax({
