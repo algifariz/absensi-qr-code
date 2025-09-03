@@ -92,7 +92,14 @@
  <script type="text/javascript">
     let selectedDeviceId = null;
     let audio = new Audio("<?= base_url('assets/audio/beep.mp3'); ?>");
-    const codeReader = new ZXing.BrowserMultiFormatReader();
+
+    const hints = new Map();
+    const formats = [ZXing.BarcodeFormat.QR_CODE];
+
+    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
+    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
+
+    const codeReader = new ZXing.BrowserMultiFormatReader(hints);
     const sourceSelect = $('#pilihKamera');
 
     $(document).on('change', '#pilihKamera', function() {
@@ -155,10 +162,10 @@
                    if (codeReader) {
                       codeReader.reset();
 
-                      // delay 2,5 detik setelah berhasil meng-scan
+                      // delay 1,5 detik setelah berhasil meng-scan
                       setTimeout(() => {
                          initScanner();
-                      }, 2500);
+                      }, 1500);
                    }
                 })
                 .catch(err => console.error(err));
