@@ -1,208 +1,128 @@
- <?= $this->extend('templates/starting_page_layout'); ?>
+<?= $this->extend('templates/starting_page_layout'); ?>
 
- <?= $this->section('navaction') ?>
- <?= $this->endSection() ?>
+<?= $this->section('navaction') ?>
+<?= $this->endSection() ?>
 
- <?= $this->section('content'); ?>
- <?php
-   $oppBtn = '';
+<?= $this->section('content'); ?>
+<?php
+$oppBtn = '';
 
-   $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
-   ?>
- <div class="main-panel">
+$waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
+?>
+<div class="main-panel">
     <div class="content">
-       <div class="container-fluid">
-          <div class="row mx-auto">
-             <div class="col-lg-3">
-                <div class="card">
-                   <div class="card-body">
-                      <h3 class="mt-2"><b>Tips</b></h3>
-                      <ul class="pl-3">
-                         <li>Tunjukkan qr code sampai terlihat jelas di kamera</li>
-                         <li>Posisikan qr code tidak terlalu jauh maupun terlalu dekat</li>
-                      </ul>
-                   </div>
+        <div class="container-fluid">
+            <div class="row mx-auto">
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mt-2"><b>Tips</b></h3>
+                            <ul class="pl-3">
+                                <li>Tunjukkan qr code sampai terlihat jelas di kamera</li>
+                                <li>Posisikan qr code tidak terlalu jauh maupun terlalu dekat</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="mt-2"><b>Penggunaan</b></h3>
+                            <ul class="pl-3">
+                                <li>Jika berhasil scan maka akan muncul data siswa/guru di samping kanan preview kamera</li>
+                                <li>Klik tombol <b><span class="text-success">Absen masuk</span> / <span class="text-warning">Absen pulang</span></b> untuk mengubah waktu absensi</li>
+
+                                <li>Untuk mengakses halaman petugas anda harus login terlebih dahulu</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                   <div class="card-body">
-                      <h3 class="mt-2"><b>Penggunaan</b></h3>
-                      <ul class="pl-3">
-                         <li>Jika berhasil scan maka akan muncul data siswa/guru di samping kanan preview kamera</li>
-                         <li>Klik tombol <b><span class="text-success">Absen masuk</span> / <span class="text-warning">Absen pulang</span></b> untuk mengubah waktu absensi</li>
-   
-                         <li>Untuk mengakses halaman petugas anda harus login terlebih dahulu</li>
-                      </ul>
-                   </div>
-                </div>
-             </div>
-             <div class="col-lg-5">
-                <div class="card">
-                   <div class="col-10 mx-auto card-header card-header-primary">
-                      <div class="row">
-                         <div class="col">
-                            <h4 class="card-title"><b>Absen <?= $waktu; ?></b></h4>
-                            <p class="card-category">Silahkan tunjukkan QR Code anda</p>
-                         </div>
-                         <div class="col-md-auto">
-                            <a href="<?= base_url("scan/$oppBtn"); ?>" class="btn btn-<?= $oppBtn == 'masuk' ? 'success' : 'warning'; ?>">
-                               Absen <?= $oppBtn; ?>
-                            </a>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="card-body my-auto px-5">
-                      <h4 class="d-inline">Pilih kamera</h4>
-
-                      <select id="pilihKamera" class="custom-select w-50 ml-2" aria-label="Default select example" style="height: 35px;">
-                         <option selected>Select camera devices</option>
-                      </select>
-
-                      <br>
-
-                      <div class="row">
-                         <div class="col-sm-12 mx-auto">
-                            <div class="previewParent">
-                               <div class="text-center">
-                                  <h4 class="d-none w-100" id="searching"><b>Mencari...</b></h4>
-                               </div>
-                               <video id="previewKamera"></video>
+                <div class="col-lg-5">
+                    <div class="card">
+                        <div class="col-10 mx-auto card-header card-header-primary">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="card-title"><b>Absen <?= $waktu; ?></b></h4>
+                                    <p class="card-category">Silahkan tunjukkan QR Code anda</p>
+                                </div>
+                                <div class="col-md-auto">
+                                    <a href="<?= base_url("scan/$oppBtn"); ?>" class="btn btn-<?= $oppBtn == 'masuk' ? 'success' : 'warning'; ?>">
+                                        Absen <?= $oppBtn; ?>
+                                    </a>
+                                </div>
                             </div>
-                         </div>
-                      </div>
-                   </div>
+                        </div>
+                        <div class="card-body my-auto px-5">
+                            <div id="reader" style="width:100%;"></div>
+                        </div>
+                    </div>
                 </div>
-             </div>
-             <div class="col-lg-4">
-                <div class="card">
-                   <div class="card-header card-header-info">
-                      <h4 class="card-title"><b>Hasil Scan</b></h4>
-                   </div>
-                   <div class="card-body">
-                      <div id="hasilScan" class="px-3"></div>
-                   </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title"><b>Hasil Scan</b></h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="hasilScan" class="px-3"></div>
+                        </div>
+                    </div>
                 </div>
-             </div>
-          </div>
-       </div>
+            </div>
+        </div>
     </div>
- </div>
+</div>
 
- <script type="text/javascript" src="<?= base_url('assets/js/plugins/zxing/zxing.min.js') ?>"></script>
- <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
- <script type="text/javascript">
-    let selectedDeviceId = null;
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript">
     let audio = new Audio("<?= base_url('assets/audio/beep.mp3'); ?>");
 
-    const hints = new Map();
-    const formats = [ZXing.BarcodeFormat.QR_CODE];
-
-    hints.set(ZXing.DecodeHintType.TRY_HARDER, true);
-    hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS, formats);
-
-    const codeReader = new ZXing.BrowserMultiFormatReader(hints);
-    const sourceSelect = $('#pilihKamera');
-
-    $(document).on('change', '#pilihKamera', function() {
-       selectedDeviceId = $(this).val();
-       if (codeReader) {
-          codeReader.reset();
-          initScanner();
-       }
-    })
-
-    const previewParent = document.getElementById('previewParent');
-    const preview = document.getElementById('previewKamera');
-
-    function initScanner() {
-       codeReader.listVideoInputDevices()
-          .then(videoInputDevices => {
-             videoInputDevices.forEach(device =>
-                console.log(`${device.label}, ${device.deviceId}`)
-             );
-
-             if (videoInputDevices.length < 1) {
-                alert("Camera not found!");
-                return;
-             }
-
-             if (selectedDeviceId == null) {
-                if (videoInputDevices.length <= 1) {
-                   selectedDeviceId = videoInputDevices[0].deviceId
-                } else {
-                   selectedDeviceId = videoInputDevices[1].deviceId
-                }
-             }
-
-             if (videoInputDevices.length >= 1) {
-                sourceSelect.html('');
-                videoInputDevices.forEach((element) => {
-                   const sourceOption = document.createElement('option')
-                   sourceOption.text = element.label
-                   sourceOption.value = element.deviceId
-                   if (element.deviceId == selectedDeviceId) {
-                      sourceOption.selected = 'selected';
-                   }
-                   sourceSelect.append(sourceOption)
-                })
-             }
-
-             $('#previewParent').removeClass('unpreview');
-             $('#previewKamera').removeClass('d-none');
-             $('#searching').addClass('d-none');
-
-             codeReader.decodeOnceFromVideoDevice(selectedDeviceId, 'previewKamera')
-                .then(result => {
-                   console.log(result.text);
-                   cekData(result.text);
-
-                   $('#previewKamera').addClass('d-none');
-                   $('#previewParent').addClass('unpreview');
-                   $('#searching').removeClass('d-none');
-
-                   if (codeReader) {
-                      codeReader.reset();
-
-                      // delay 1,5 detik setelah berhasil meng-scan
-                      setTimeout(() => {
-                         initScanner();
-                      }, 1500);
-                   }
-                })
-                .catch(err => console.error(err));
-
-          })
-          .catch(err => console.error(err));
+    function onScanSuccess(decodedText, decodedResult) {
+        console.log(`Code matched = ${decodedText}`, decodedResult);
+        cekData(decodedText);
+        html5QrcodeScanner.clear();
     }
 
-    if (navigator.mediaDevices) {
-       initScanner();
-    } else {
-       alert('Cannot access camera.');
-    }
+    let config = {
+        fps: 10,
+        qrbox: {
+            width: 250,
+            height: 250
+        },
+        rememberLastUsedCamera: true,
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+    };
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", config, /* verbose= */ false);
+    html5QrcodeScanner.render(onScanSuccess);
+
 
     async function cekData(code) {
-       jQuery.ajax({
-          url: "<?= base_url('scan/cek'); ?>",
-          type: 'post',
-          data: {
-             'unique_code': code,
-             'waktu': '<?= strtolower($waktu); ?>'
-          },
-          success: function(response, status, xhr) {
-             audio.play();
-             console.log(response);
-             $('#hasilScan').html(response);
-          },
-          error: function(xhr, status, thrown) {
-             console.log(thrown);
-             $('#hasilScan').html(thrown);
-          }
-       });
+        jQuery.ajax({
+            url: "<?= base_url('scan/cek'); ?>",
+            type: 'post',
+            data: {
+                'unique_code': code,
+                'waktu': '<?= strtolower($waktu); ?>'
+            },
+            success: function(response, status, xhr) {
+                audio.play();
+                console.log(response);
+                $('#hasilScan').html(response);
+                setTimeout(() => {
+                    location.reload();
+                }, 1500)
+            },
+            error: function(xhr, status, thrown) {
+                console.log(thrown);
+                $('#hasilScan').html(thrown);
+            }
+        });
     }
 
     function clearData() {
-       $('#hasilScan').html('');
+        $('#hasilScan').html('');
     }
- </script>
+</script>
 
- <?= $this->endSection(); ?>
+<?= $this->endSection(); ?>
