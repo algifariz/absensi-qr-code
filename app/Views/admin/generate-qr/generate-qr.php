@@ -4,13 +4,13 @@
   .progress-siswa {
     height: 5px;
     border-radius: 0px;
-    background-color: rgb(186, 124, 222);
+    background-color: rgba(2, 19, 255, 1);
   }
 
   .progress-guru {
     height: 5px;
     border-radius: 0px;
-    background-color: rgb(58, 192, 85);
+    background-color: rgba(2, 19, 255, 1);
   }
 
   .my-progress-bar {
@@ -45,7 +45,7 @@
                     <h4 class="text-dark"><b>Data Siswa</b></h4>
                     <p>Total jumlah siswa : <b><?= count($siswa); ?></b>
                       <br>
-                      <a href="<?= base_url('admin/siswa'); ?>" class="text-dark">Lihat data</a>
+                      
                     </p>
                     <div class="row px-2">
                       <div class="col-12 col-xl-6 px-1">
@@ -133,11 +133,11 @@
                         </div>
                       </div>
                     </form>
-                    <br>
+                   
                     <p>
-                      Untuk generate/download QR Code per masing-masing siswa kunjungi
-                      <a href="<?= base_url('admin/siswa'); ?>"><b>data siswa</b></a>
+                      Untuk generate/download QR Code per masing-masing siswa kunjungi data siswa
                     </p>
+                    <a href="<?= base_url('admin/siswa'); ?>" class="btn btn-primary text-dark">Lihat data</a>
                   </div>
                 </div>
               </div>
@@ -147,8 +147,7 @@
                     <h4 class="text-dark"><b>Data Guru</b></h4>
                     <p>Total jumlah guru : <b><?= count($guru); ?></b>
                       <br>
-                      <a href="<?= base_url('admin/guru'); ?>" class="text-dark">Lihat data</a>
-                    </p>
+                      
                     <div class="row px-2">
                       <div class="col-12 col-xl-6 px-1">
                         <button onclick="generateAllQrGuru()" class="btn btn-success p-2 px-md-4 w-100">
@@ -190,7 +189,8 @@
                     <br>
                     <p>
                       Untuk generate/download QR Code per masing-masing guru kunjungi
-                      <a href="<?= base_url('admin/guru'); ?>" class="text-dark"><b>data guru</b></a>
+
+                     <a href="<?= base_url('admin/guru'); ?>" class="btn btn-success text-dark">Lihat data</a>
                     </p>
                   </div>
                 </div>
